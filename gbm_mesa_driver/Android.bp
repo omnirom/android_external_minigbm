@@ -8,17 +8,6 @@ filegroup {
     srcs: ["gbm_mesa_driver.cpp"],
 }
 
-cc_library {
-    name: "libgbm_mesa_wrapper",
-    srcs: ["gbm_mesa_wrapper.cpp"],
-    shared_libs: [
-        "libdrm",
-        "libgbm_mesa",
-        "liblog",
-    ],
-    vendor: true,
-}
-
 cc_library_shared {
     name: "libminigbm_gralloc_gbm_mesa",
     defaults: ["minigbm_cros_gralloc_library_defaults"],
@@ -26,10 +15,15 @@ cc_library_shared {
     srcs: [
         ":minigbm_gbm_mesa_internal_files",
         ":minigbm_gbm_mesa_backend_files",
+        "gbm_mesa_wrapper.cpp",
     ],
 
-    shared_libs: ["libgbm_mesa_wrapper"],
-
+    shared_libs: [
+        "libdrm",
+        "libgbm_mesa",
+        "liblog",
+    ],
+    
     cpp_std: "c++17",
 }
 
